@@ -13,7 +13,9 @@ export const GetAll = () => {
       setIsError(false);
       try {
         const data = await getTodos();
+       
         setTodos(data);
+        console.log(data)
       } catch (err) {
         console.error(err);
         setIsError(true);
@@ -23,6 +25,7 @@ export const GetAll = () => {
   }, []);
 
   return {
+   
     setTodos,
     todos,
     isLoading,

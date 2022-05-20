@@ -1,0 +1,50 @@
+// import React, { useState } from "react"
+// import { useUpdateProduct } from "../../../hooks/useUpdateProduct"
+// import { IProduct } from "../../../types/product"
+
+// interface UpdateProductProps {
+//   product: IProduct
+// }
+
+// const UpdateProduct = ({ product }: UpdateProductProps) => {
+//   const [name, setName] = useState(product.name)
+//   const [description, setDescription] = useState(product?.description)
+//   const [price, setPrice] = useState(product.price)
+
+//   const { isError, isLoading, updateProduct } = useUpdateProduct()
+
+//   const handleUpdateProduct = async (e: React.FormEvent<HTMLFormElement>) => {
+//     e.preventDefault()
+//     await updateProduct({ id: product.id, name, description, price })
+//   }
+//   return (
+//     <div>
+//       <form className='flex flex-col' onSubmit={handleUpdateProduct}>
+//         <input
+//           type='text'
+//           value={name}
+//           onChange={e => setName(e.target.value)}
+//           placeholder='Name'
+//           className='input w-full max-w-xs'
+//         />
+//         <input
+//           type='text'
+//           value={description}
+//           onChange={e => setDescription(e.target.value)}
+//           placeholder='Desc'
+//           className='input w-full max-w-xs' 
+//         />
+//         <input
+//           type='number'
+//           value={price}
+//           onChange={e => setPrice(Number(e.target.value))}
+//           placeholder='Price'
+//           className='input w-full max-w-xs'
+//         />
+//         <button type='submit'>{isLoading ? "loading..." : "Update"}</button>
+//       </form>
+//     </div>
+//   )
+// }
+
+// export default UpdateProduct

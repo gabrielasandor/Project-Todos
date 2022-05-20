@@ -1,78 +1,73 @@
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
+import { useUpdateTodo } from "../hooks/UpdateTodo";
 import { ITodo } from "../types/todo";
+import { DeleteIndex } from "./DeleteIndex";
+
 
 const SingleTodo: React.FC<{
-  todo: ITodo;
+  todoparam: ITodo;
   todos: ITodo[];
   setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>;
-}> = ({ todo, todos, setTodos }) => {
+}> = ({ todoparam, todos, setTodos }) => {
+  const [isDone, setIsDone] = useState<boolean>(false);
+  const [todo, setEditTodo] = useState(todoparam.todo);
   const [edit, setEdit] = useState<boolean>(false);
-  const [editTodo, setEditTodo] = useState<string>(todo.todo);
-
+  const { isError, isLoading, updateTodo } = useUpdateTodo()
+  
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     inputRef.current?.focus();
   }, [edit]);
 
-  const handleEdit = (e: React.FormEvent, id: number) => {
-    e.preventDefault();
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, todo: editTodo } : todo))
-    );
-    setEdit(false);
-  };
+  const handleEdit = async (e: React.FormEvent<HTMLFormElement>, id: number) => {
+    e.preventDefault()
+    await updateTodo({ id: todoparam.id, todo, isDone })
+  }
 
-  const handleDelete = (id: number) => {
-    fetch(`http://localhost:3001/api/delete/${id}`, { method: "DELETE" }).then(
-      (result) => {
-        result.json().then((resp) => {
-          console.warn(resp);
-          setTodos(todos.filter((todo) => todo.id !== id));
-        });
-      }
-    );
-  };
 
   const handleDone = (id: number) => {
     setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+         todos.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone  } : todo
       )
     );
   };
 
+//   const handleDone = (id: number) => {
+//     setTodos(todos.map((item) => {
+//         if (item.id === todoparam.id) {
+//             return {
+//                 ...item, isDone: true
+//             }
+//         }
+//        return item;
+//     }))
+// }
+
   return (
-    <form className="todos_single" onSubmit={(e) => handleEdit(e, todo.id)}>
-      {edit ? (
+    <form className="todos_single" onSubmit={(e) => handleEdit(e, todoparam.id)}>
+      
         <input
-          value={editTodo}
+          value={todo}
           onChange={(e) => setEditTodo(e.target.value)}
-          className="todos_single_text"
+          className={`todos_single_text ${todoparam.isDone ? 'completed' : ''}`} 
           ref={inputRef}
         />
-      ) : todo.isDone ? (
-        <s className="todos_single_text">{todo.todo}</s>
-      ) : (
-        <span className="todos_single_text">{todo.todo}</span>
-      )}
+      
       <div>
         <span
           className="icon"
           onClick={() => {
-            if (!edit && !todo.isDone) {
-              setEdit(!edit);
-            }
+            setEdit(todoparam.isDone);
           }}
         >
           <AiFillEdit />
         </span>
-        <span className="icon" onClick={() => handleDelete(todo.id)}>
-          <AiFillDelete />
-        </span>
-        <span className="icon" onClick={() => handleDone(todo.id)}>
+       <DeleteIndex todoparam={todoparam}></DeleteIndex>
+        <span className="icon" onClick={() => handleDone(todoparam.id)}>
           <MdDone />
         </span>
       </div>
