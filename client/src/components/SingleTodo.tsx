@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRef } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
@@ -7,7 +7,7 @@ import { ITodo } from "../types/todo";
 import { DeleteIndex } from "./DeleteIndex";
 
 const SingleTodo: React.FC<{todoparam: ITodo;}> = ({ todoparam }) => {
-  const [isDone, setIsDone] = useState(todoparam.isDone);
+  const [isDone, setIsDone] = useState(!todoparam.isDone);
   const [todo, setEditTodo] = useState(todoparam.todo);
   const { updateTodo } = useUpdateTodo();
 
@@ -19,20 +19,17 @@ const SingleTodo: React.FC<{todoparam: ITodo;}> = ({ todoparam }) => {
     }
   };
 
-  const handleDone = () => {
-    if(todoparam.isDone === false){
-     setIsDone(true)
-    }else  {
-      setIsDone(false)
-    }
-  }
-
   const handleEdit = async (
     e: React.FormEvent<HTMLFormElement>,
     id: number
   ) => {
     e.preventDefault();
-    await updateTodo({ id: todoparam.id, todo, isDone });
+    await updateTodo({ id: todoparam.id, todo, isDone:todoparam.isDone });
+  };
+
+  const handleDoneClick = async (
+  ) => {
+    await updateTodo({ id: todoparam.id, todo:todoparam.todo, isDone });
   };
 
   return (
@@ -48,16 +45,12 @@ const SingleTodo: React.FC<{todoparam: ITodo;}> = ({ todoparam }) => {
       />
 
       <div>
-        <span
-          className="icon"
-          onClick={focusInput}
-        >
+        <span className="icon" onClick={focusInput} >
           <AiFillEdit />
         </span>
         <DeleteIndex todoparam={todoparam}></DeleteIndex>
-        <span className="icon"
-        onClick={handleDone}
-         >
+        
+        <span className="icon" onClick={handleDoneClick}>
           <MdDone />
         </span>
       </div>

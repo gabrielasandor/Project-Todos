@@ -66,7 +66,7 @@
     background-color: rgb(140, 174, 235);
 }
 
-.completed {
+.completedtrue {
     text-decoration: line-through;
     opacity: 0.5;
   }
@@ -81,6 +81,7 @@
     font-size: 3.5vh;
     cursor: pointer;
 }
+
 
 
 .searchicon {
@@ -128,6 +129,29 @@
  input:focus::placeholder {
     color: transparent;
     
+  }
+
+  .buttons_box{
+      margin-top: 20px;
+  }
+
+  .buttons {
+    background-color: rgb(140, 174, 235);
+    color: black;
+    border: 2px solid #555555;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .buttons:hover {
+    background-color: #555555;
+    color: white;
   }
 
 

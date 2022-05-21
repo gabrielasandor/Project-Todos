@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import "./style.css";
 import SingleTodo from "./SingleTodo";
 import { TodoList } from "./TodoList";
+import { InputFeild } from "./InputFeild";
 
 export const SearchBar = () => {
   const { todos, setTodo, isLoading, isError } = TodoById("");
@@ -40,7 +41,19 @@ export const SearchBar = () => {
       </form>
       <div>{isLoading && <p>Loading...</p>}</div>
       <div>{isError && <p>Something went wrong</p>}</div>
-     
+     <div className="buttons_box">  
+       <button  className="buttons" onClick={() => {
+            if (show === false) {
+              setShow(true);
+            }
+          }}>All</button>
+          
+          <button className="buttons">Completed</button>
+          <button className="buttons">Incompleted </button>
+          <button className="buttons">Alfabetical</button>
+          
+          </div>
+    
      {show ? (
       <TodoList/>
       ) : (<div className="todos">
@@ -56,6 +69,7 @@ export const SearchBar = () => {
       ))}
     </div> )} 
       
+    <InputFeild/>
       
     </>
   );
