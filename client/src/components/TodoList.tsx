@@ -4,7 +4,7 @@ import SingleTodo from "./SingleTodo";
 import { GetAll } from "../hooks/GetAll";
 
 export const TodoList = () => {
-  const { isLoading, setTodos, isError, todos } = GetAll();
+  const { isLoading, isError, todos } = GetAll();
  
   return (
     <>
@@ -17,8 +17,6 @@ export const TodoList = () => {
           <SingleTodo
             todoparam={todo}
             key={todo.id}
-            todos={todos}
-            setTodos={setTodos}
           /> 
         ))}
       </div>

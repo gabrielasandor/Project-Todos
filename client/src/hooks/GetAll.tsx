@@ -25,8 +25,6 @@ export const GetAll = () => {
   }, []);
 
   return {
-   
-    setTodos,
     todos,
     isLoading,
     isError,

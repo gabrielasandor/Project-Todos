@@ -7,7 +7,7 @@ export const InputFeild = () => {
   const [todo, setTodo] = useState<string>("");
   const { isError, createTodo } = CreateTodo();
 
-  const inputRef = useRef<HTMLInputElement>(null);
+ const inputRef = useRef<HTMLInputElement>(null);
  
 const handleAdd = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
@@ -26,7 +26,7 @@ const handleAdd = async (e: React.FormEvent<HTMLFormElement>) => {
      
       <form  onSubmit={(e) => {
           handleAdd(e);
-          inputRef.current?.blur();
+         inputRef.current?.blur();
         }}  className="back">
       
         <input

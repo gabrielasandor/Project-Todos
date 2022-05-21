@@ -18,12 +18,10 @@ export const TodoById = (query: string) => {
         const query = encodeURIComponent(todo);
         if(query) {
           const data = await getTodoById(query)
-
           setTodos(data)
           
         }
-        
-
+ 
       } catch (err) {
         console.error(err)
         setIsError(true)
@@ -31,13 +29,12 @@ export const TodoById = (query: string) => {
       setIsLoading(false)
       
     })()
-   /// in paranteze pui todo
   }, [todo])
 
   return {
     todos,
     todo,
-    setTodos,
+   
     setTodo,
     isLoading,
     isError,

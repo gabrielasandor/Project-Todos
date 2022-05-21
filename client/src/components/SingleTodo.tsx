@@ -6,68 +6,58 @@ import { useUpdateTodo } from "../hooks/UpdateTodo";
 import { ITodo } from "../types/todo";
 import { DeleteIndex } from "./DeleteIndex";
 
-
-const SingleTodo: React.FC<{
-  todoparam: ITodo;
-  todos: ITodo[];
-  setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>;
-}> = ({ todoparam, todos, setTodos }) => {
-  const [isDone, setIsDone] = useState<boolean>(false);
+const SingleTodo: React.FC<{todoparam: ITodo;}> = ({ todoparam }) => {
+  const [isDone, setIsDone] = useState(todoparam.isDone);
   const [todo, setEditTodo] = useState(todoparam.todo);
-  const [edit, setEdit] = useState<boolean>(false);
-  const { isError, isLoading, updateTodo } = useUpdateTodo()
-  
+  const { updateTodo } = useUpdateTodo();
+
   const inputRef = useRef<HTMLInputElement>(null);
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [edit]);
 
-  const handleEdit = async (e: React.FormEvent<HTMLFormElement>, id: number) => {
-    e.preventDefault()
-    await updateTodo({ id: todoparam.id, todo, isDone })
-  }
-
-
-  const handleDone = (id: number) => {
-    setTodos(
-         todos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone  } : todo
-      )
-    );
+  const focusInput = () => {
+    if (todoparam.isDone === false) {
+      inputRef.current?.focus();
+    }
   };
 
-//   const handleDone = (id: number) => {
-//     setTodos(todos.map((item) => {
-//         if (item.id === todoparam.id) {
-//             return {
-//                 ...item, isDone: true
-//             }
-//         }
-//        return item;
-//     }))
-// }
+  const handleDone = () => {
+    if(todoparam.isDone === false){
+     setIsDone(true)
+    }else  {
+      setIsDone(false)
+    }
+  }
+
+  const handleEdit = async (
+    e: React.FormEvent<HTMLFormElement>,
+    id: number
+  ) => {
+    e.preventDefault();
+    await updateTodo({ id: todoparam.id, todo, isDone });
+  };
 
   return (
-    <form className="todos_single" onSubmit={(e) => handleEdit(e, todoparam.id)}>
-      
-        <input
-          value={todo}
-          onChange={(e) => setEditTodo(e.target.value)}
-          className={`todos_single_text ${todoparam.isDone ? 'completed' : ''}`} 
-          ref={inputRef}
-        />
-      
+    <form
+      className="todos_single"
+      onSubmit={(e) => handleEdit(e, todoparam.id)}
+    >
+      <input
+        value={todo}
+        onChange={(e) => setEditTodo(e.target.value)}
+        className={`todos_single_text ${todoparam.isDone ? "completedtrue" : ""}`}
+        ref={inputRef}
+      />
+
       <div>
         <span
           className="icon"
-          onClick={() => {
-            setEdit(todoparam.isDone);
-          }}
+          onClick={focusInput}
         >
           <AiFillEdit />
         </span>
-       <DeleteIndex todoparam={todoparam}></DeleteIndex>
-        <span className="icon" onClick={() => handleDone(todoparam.id)}>
+        <DeleteIndex todoparam={todoparam}></DeleteIndex>
+        <span className="icon"
+        onClick={handleDone}
+         >
           <MdDone />
         </span>
       </div>
