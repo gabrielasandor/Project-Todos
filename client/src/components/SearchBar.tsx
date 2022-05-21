@@ -1,11 +1,12 @@
 import { TodoById } from "../hooks/GetById";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./style.css";
 import SingleTodo from "./SingleTodo";
+import { TodoList } from "./TodoList";
 
 export const SearchBar = () => {
   const { todos, setTodo, isLoading, isError } = TodoById("");
-
+   const [show, setShow] = useState<boolean>(true)
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,6 +25,7 @@ export const SearchBar = () => {
         onSubmit={(e) => {
           handleSearch(e);
           inputRef.current?.blur();
+          setShow(false)
         }}
       >
         <input
@@ -38,21 +40,23 @@ export const SearchBar = () => {
       </form>
       <div>{isLoading && <p>Loading...</p>}</div>
       <div>{isError && <p>Something went wrong</p>}</div>
-      <div></div>
-      <div className="todos">
-        {todos.length > 0 && todos.map((todo) => (
-          
-          <SingleTodo
-            todoparam={todo}
-            key={todo.id}
-          
-          /> 
+     
+     {show ? (
+      <TodoList/>
+      ) : (<div className="todos">
+      {todos.length > 0 && todos.map((todo) => (
+        
+        <SingleTodo
+          todoparam={todo}
+          key={todo.id}
+        
+        /> 
+    
+        
+      ))}
+    </div> )} 
       
-          
-        ))}
-      </div>
-
-
+      
     </>
   );
 };
