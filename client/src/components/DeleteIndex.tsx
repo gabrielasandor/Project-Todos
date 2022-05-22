@@ -15,12 +15,6 @@ export const DeleteIndex: React.FC<props> = ({
 }) => {
   const { deleteTodoId } = HandleDelete();
 
-  /* <span className="icon" onClick={() => deleteTodoId(todoparam.id)}>
-      <span className="icon" onClick={() => setIsTrue(!isTrue)}>
-        <AiFillDelete />
-      </span>
-    </span>
-    */
   return (
     <span
       className="icon"
