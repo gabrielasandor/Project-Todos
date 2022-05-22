@@ -6,8 +6,10 @@ import { TodoList } from "./TodoList";
 import { InputFeild } from "./InputFeild";
 
 export const SearchBar = () => {
+  const [isTrue, setIsTrue] = useState<boolean>(false);
+
   const { todos, setTodo, isLoading, isError } = TodoById("");
-   const [show, setShow] = useState<boolean>(true)
+  const [show, setShow] = useState<boolean>(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -15,9 +17,9 @@ export const SearchBar = () => {
     const form = e.target as HTMLFormElement;
     const input = form.querySelector("#search_text") as HTMLInputElement;
     setTodo(input.value);
-     input.value = "";
+    input.value = "";
   };
-
+ 
   return (
     <>
       <form
@@ -26,7 +28,7 @@ export const SearchBar = () => {
         onSubmit={(e) => {
           handleSearch(e);
           inputRef.current?.blur();
-          setShow(false)
+          setShow(false);
         }}
       >
         <input
@@ -41,36 +43,34 @@ export const SearchBar = () => {
       </form>
       <div>{isLoading && <p>Loading...</p>}</div>
       <div>{isError && <p>Something went wrong</p>}</div>
-     <div className="buttons_box">  
-       <button  className="buttons" onClick={() => {
-            if (show === false) {
-              setShow(true);
-            }
-          }}>All</button>
-          
-          <button className="buttons">Completed</button>
-          <button className="buttons">Incompleted </button>
-          <button className="buttons">Alfabetical</button>
-          
-          </div>
-    
-     {show ? (
-      <TodoList/>
-      ) : (<div className="todos">
-      {todos.length > 0 && todos.map((todo) => (
-        
-        <SingleTodo
-          todoparam={todo}
-          key={todo.id}
-        
-        /> 
-    
-        
-      ))}
-    </div> )} 
-      
-    <InputFeild/>
-      
+      <div className="buttons_box">
+      <button
+        className="buttons"
+        onClick={() => {
+            setShow(!show);
+          }}
+      >
+          All
+        </button>
+      </div>
+
+      {show ? (
+        <TodoList isTrue={isTrue} setIsTrue={setIsTrue} />
+      ) : (
+        <div className="todos">
+          {todos.length > 0 &&
+            todos.map((todo) => (
+              <SingleTodo
+                isTrue={isTrue}
+                setIsTrue={setIsTrue}
+                todoparam={todo}
+                key={todo.id}
+              />
+            ))}
+        </div>
+      )}
+
+      <InputFeild isTrue={isTrue} setIsTrue={setIsTrue} />
     </>
   );
 };

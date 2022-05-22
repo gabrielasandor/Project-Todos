@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ITodo } from "../types/todo";
 import { getTodos } from "../api/API";
 
@@ -7,8 +7,7 @@ export const GetAll = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    (async () => {
+  const getTodosData = async () => {
       setIsLoading(true);
       setIsError(false);
       try {
@@ -20,11 +19,11 @@ export const GetAll = () => {
         console.error(err);
         setIsError(true);
       }
-      setIsLoading(false);
-    })();
-  }, []);
+      setIsLoading(false); 
+  }
 
   return {
+    getTodosData,
     todos,
     isLoading,
     isError,

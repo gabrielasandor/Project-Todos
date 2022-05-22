@@ -1,10 +1,19 @@
-import React from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import "./style.css";
 import SingleTodo from "./SingleTodo";
 import { GetAll } from "../hooks/GetAll";
 
-export const TodoList = () => {
-  const { isLoading, isError, todos } = GetAll();
+interface props {
+  isTrue: boolean
+  setIsTrue: Dispatch<SetStateAction<boolean>>;
+  }
+
+export const TodoList: React.FC<props>  = ({isTrue, setIsTrue}) => {
+  const {getTodosData, isLoading, isError, todos } = GetAll();
+
+  useEffect(() => {
+   getTodosData()
+  }, [isTrue]);
  
   return (
     <>
@@ -14,8 +23,10 @@ export const TodoList = () => {
       <div className="todos">
         {todos.map((todo) => (
           
-          <SingleTodo
-            todoparam={todo}
+          <SingleTodo 
+           isTrue={isTrue}
+           setIsTrue={setIsTrue}
+           todoparam={todo}
             key={todo.id}
           /> 
         ))}

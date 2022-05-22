@@ -33,8 +33,6 @@ export const TodoById = (query: string) => {
 
   return {
     todos,
-    todo,
-   
     setTodo,
     isLoading,
     isError,

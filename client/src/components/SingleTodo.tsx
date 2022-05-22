@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useRef } from "react";
 import { AiFillEdit } from "react-icons/ai";
-import { MdDone } from "react-icons/md";
 import { useUpdateTodo } from "../hooks/UpdateTodo";
 import { ITodo } from "../types/todo";
 import { DeleteIndex } from "./DeleteIndex";
+import { IsDone } from "./IsDone";
 
-const SingleTodo: React.FC<{todoparam: ITodo;}> = ({ todoparam }) => {
-  const [isDone, setIsDone] = useState(!todoparam.isDone);
+interface props {
+  isTrue: boolean
+  setIsTrue: Dispatch<SetStateAction<boolean>>;
+  todoparam: ITodo;
+  }
+
+const SingleTodo: React.FC<props> = ({ todoparam, isTrue, setIsTrue}) => {
   const [todo, setEditTodo] = useState(todoparam.todo);
   const { updateTodo } = useUpdateTodo();
 
@@ -25,17 +30,16 @@ const SingleTodo: React.FC<{todoparam: ITodo;}> = ({ todoparam }) => {
   ) => {
     e.preventDefault();
     await updateTodo({ id: todoparam.id, todo, isDone:todoparam.isDone });
-  };
-
-  const handleDoneClick = async (
-  ) => {
-    await updateTodo({ id: todoparam.id, todo:todoparam.todo, isDone });
+    setIsTrue(!isTrue)
   };
 
   return (
     <form
       className="todos_single"
-      onSubmit={(e) => handleEdit(e, todoparam.id)}
+     onSubmit={(e) => {
+     handleEdit(e, todoparam.id);
+    inputRef.current?.blur();
+  }}
     >
       <input
         value={todo}
@@ -48,11 +52,9 @@ const SingleTodo: React.FC<{todoparam: ITodo;}> = ({ todoparam }) => {
         <span className="icon" onClick={focusInput} >
           <AiFillEdit />
         </span>
-        <DeleteIndex todoparam={todoparam}></DeleteIndex>
+        <DeleteIndex todoparam={todoparam}  isTrue={isTrue} setIsTrue={setIsTrue}></DeleteIndex>
         
-        <span className="icon" onClick={handleDoneClick}>
-          <MdDone />
-        </span>
+       <IsDone todoparam={todoparam}  isTrue={isTrue} setIsTrue={setIsTrue}></IsDone>
       </div>
     </form>
   );

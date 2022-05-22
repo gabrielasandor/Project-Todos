@@ -7,7 +7,6 @@ export const useUpdateTodo = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
    
-  
     const updateTodo = async (updateReq: IUpdate) => {
       try {
         setIsLoading(true)

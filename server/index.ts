@@ -87,10 +87,13 @@ const deleteTodo = (req: Request, res: Response) => {
   todos.splice(index, 1);
   writeUsersToFile();
   res.send(todo);
+
 };
+
 
 app.get("/api/todos", getTodos);
 app.get('/api/todos/:todo', getTodosParams);
+
 
 app.post("/api/add", addTodo);
 
