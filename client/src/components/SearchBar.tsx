@@ -7,10 +7,11 @@ import { InputFeild } from "./InputFeild";
 
 export const SearchBar = () => {
   const [isTrue, setIsTrue] = useState<boolean>(false);
-
+ 
   const { todos, setTodo, isLoading, isError } = TodoById("");
   const [show, setShow] = useState<boolean>(true);
   const inputRef = useRef<HTMLInputElement>(null);
+  
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +33,7 @@ export const SearchBar = () => {
         }}
       >
         <input
-          placeholder="Search a task"
+          placeholder="Search todo"
           className="input_box"
           id="search_text"
         />

@@ -8,7 +8,8 @@ interface props {
 
 export const InputFeild: React.FC<props> = ({ isTrue, setIsTrue }) => {
   const [todo, setTodo] = useState<string>("");
-  const { isError, createTodo } = CreateTodo();
+  const {isError, createTodo } = CreateTodo();
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleAdd = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +24,8 @@ export const InputFeild: React.FC<props> = ({ isTrue, setIsTrue }) => {
 
   return (
     <>
-      <div>{isError && <p>Something went wrong....</p>}</div>
+      
+      <div>{isError && <p>Something went wrong</p>}</div>
 
       <div className="add_todo">
         <form

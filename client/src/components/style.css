@@ -1,5 +1,5 @@
 .input {
-    margin-top: 5vh;
+    margin-top: 4%;
     display: flex;
     width: 80%;
     position: relative;
@@ -9,8 +9,8 @@
 .input_box {
     border: none;
     width: 100%;
-    border-radius: 5vh;
-    padding: 2vh 3vh;
+    border-radius: 50px;
+    padding: 15px 22px;
     font-size: 3.5vh;
     transition: 0.2s;
     box-shadow: inset 0 0 5px black;
@@ -19,13 +19,13 @@
 
 .input_submit {
     position:absolute;
-    width: 5vw;
-    height: 7vh;
+    width: 8%;
+    height:80%;
     margin: 1.2vh;
     border-radius: 50%;
     right: 0;
     border: none;
-    font-size: 15px;
+    font-size: 2vh;
     background-color: rgb(101, 160, 237);
     color: white;
     transition: 0.2s all;
@@ -52,15 +52,15 @@
 .todos_single {
     display: flex;
     width: 80%;
-    border-radius: 1vh;
-    padding: 2vh;
-    margin-top: 1.5vh;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
     background-color: rgb(106, 139, 232);
 }
 
 .todos_single_text{
     flex: 1;
-    padding: 0.5vh;
+    padding: 5px;
     border: none;
     font-size: 4vh;
     background-color: rgb(140, 174, 235);
@@ -77,12 +77,10 @@
 
 .icon {
 
-    margin:1vh;
+    margin:10px;
     font-size: 3.5vh;
     cursor: pointer;
 }
-
-
 
 .searchicon {
     float: left;
@@ -100,12 +98,13 @@
     .add_todo  {
         display: flex;
         margin-top: 3%;
-        width: 40%;  
+        width: 40%; 
+     
+
     }
  
  .extand { 
     border: none;
-    justify-content: start;
      width: 15%;
      box-sizing: border-box;
      border-radius: 20%;
@@ -121,7 +120,6 @@
  outline: none !important;
  border-width: 0px !important;
  border: none !important;
- width: 2.4%;
  border-radius: 4px;
  width: 70%;
  
@@ -132,18 +130,20 @@
   }
 
   .buttons_box{
-      margin-top: 20px;
+      margin-top: 4%;
+      width: 60%;
   }
 
   .buttons {
+
     background-color: rgb(140, 174, 235);
     color: black;
-    border: 2px solid #555555;
-    padding: 10px 22px;
+    border: 2px solid #7ea5e2;
+    padding: 8px 25px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 3vh;
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -153,6 +153,69 @@
     background-color: #555555;
     color: white;
   }
+
+  @media (max-width: 1000px) {
+      .todos{
+       width: 80%;
+      }
+    .todos_single {
+      width: 90%;
+    }
+
+    .add_todo  {
+     width: 70%; 
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .input_submit {
+      
+      width: 20%;
+      height:80%;
+      font-size: 2vh;
+     
+  }
+
+  .input_box {
+   padding: 10px 22px;
+    font-size: 3vh;
+    
+}
+
+.icon {
+  font-size: 3vh;
+  
+}
+
+    .todos {
+      width: 95%;
+    }
+    .todos_single {
+      width: 80%;
+    }
+
+    .input {
+     width: 80%;
+      
+  }
+
+    .todos_single_text{
+        padding: 0.5vh;
+        font-size: 2vh;
+       
+    }
+
+    .extand { 
+       font-size: 3vh;  
+   }
+
+    .buttons {
+      padding: 8px 20px;
+      font-size: 2vh;
+    }
+  }
+
+  
 
 
  

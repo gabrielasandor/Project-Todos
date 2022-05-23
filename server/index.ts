@@ -35,6 +35,7 @@ const writeUsersToFile = () => {
   });
 };
 
+
 const getTodosParams = (req: Request, res: Response) => {
   const todosAll = todos.filter(
     (t: { todo: string }) => t.todo === req.params.todo
@@ -42,9 +43,8 @@ const getTodosParams = (req: Request, res: Response) => {
   res.send(todosAll);
 }
 
+
 const getTodos = (req: Request, res: Response) => {
-  const { error } = req.body;
-  if (error) return res.status(400).send(error.details[0].message);
   res.send(todos);
 };
 
@@ -82,7 +82,7 @@ const deleteTodo = (req: Request, res: Response) => {
     (t: { id: number }) => t.id === parseInt(req.params.id)
   );
   if (!todo) return res.status(404).send("The given id was not found.");
-
+  
   const index = todos.indexOf(todo);
   todos.splice(index, 1);
   writeUsersToFile();
@@ -93,7 +93,6 @@ const deleteTodo = (req: Request, res: Response) => {
 
 app.get("/api/todos", getTodos);
 app.get('/api/todos/:todo', getTodosParams);
-
 
 app.post("/api/add", addTodo);
 
